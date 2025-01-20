@@ -1,8 +1,5 @@
 package MakingChange;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Purse {
 
@@ -29,11 +26,11 @@ public class Purse {
         return totalCash;
     }
 
-    public String ToString() {
+    public String toString() {
         StringBuilder string = new StringBuilder();
 
         if (cash.isEmpty()) {
-            string.append("No cash available");
+            string.append("Empty Purse");
             return string.toString();
         }
         // create a list of the entries in the map, so they can be sorted in descending order
@@ -41,7 +38,7 @@ public class Purse {
         sortedCash.sort((bill1, bill2) -> Double.compare(bill2.getKey().amt(), bill1.getKey().amt()));
 
         for (HashMap.Entry<Denomination, Integer> entry : sortedCash) {
-            if (entry.getKey().form().eqauls("Bill")){
+            if (entry.getKey().form().equals("Bill")){
                 string.append("\n").append(entry.getValue()).append(" ").append(entry.getKey().name()).append("- Dollar Note");
             }
             else {
@@ -50,5 +47,13 @@ public class Purse {
         }
         return string.toString();
 
+    }
+
+    public boolean isEmpty() {
+        return cash.isEmpty();
+    }
+
+    public Set<Map.Entry<Denomination, Integer>> entrySet() {
+        return cash.entrySet();
     }
 }
