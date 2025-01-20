@@ -13,16 +13,16 @@ public class Register {
     // initialize new Register object with a list of bills/coins
     public Register() {
         this.denominations = new ArrayList<>(Arrays.asList(
-                new Denomination("One Hundred", 100.00, "Bill", "./images/One Hundred.jpg"),
-                new Denomination("Fifty", 50.00, "Bill", "./images/Fifty.jpg"),
-                new Denomination("Twenty", 20.00, "Bill", "./images/Twenty.jpg"),
-                new Denomination("Ten", 10.00, "Bill", "./images/Ten.jpg"),
-                new Denomination("Five", 5.00, "Bill", "./images/Five.jpg"),
-                new Denomination("One", 1.00, "Bill", "./images/One.jpg"),
-                new Denomination("Quarter", .25, "Coin", "./images/Quarter.jpg"),
-                new Denomination("Dime", .10, "Coin", "./images/Dime.jgp"),
-                new Denomination("Nickel", .05, "Coin", "./images/Nickel.jpg"),
-                new Denomination("Penny", .01, "Coin", "./images/Penny.jpg")
+                new Denomination("One Hundred", 100.00, "Bill", "One Hundred.jpg"),
+                new Denomination("Fifty", 50.00, "Bill", "Fifty.jpg"),
+                new Denomination("Twenty", 20.00, "Bill", "Twenty.jpg"),
+                new Denomination("Ten", 10.00, "Bill", "Ten.jpg"),
+                new Denomination("Five", 5.00, "Bill", "Five.jpg"),
+                new Denomination("One", 1.00, "Bill", "One.jpg"),
+                new Denomination("Quarter", .25, "Coin", "Quarter.jpg"),
+                new Denomination("Dime", .10, "Coin", "Dime.jpg"),
+                new Denomination("Nickel", .05, "Coin", "Nickel.jpg"),
+                new Denomination("Penny", .01, "Coin", "Penny.jpg")
         ));
     }
 
@@ -66,6 +66,9 @@ public class Register {
         return change;
     }
 
+    /*
+        This is the main method for the console version
+     */
     public static void main(String[] args) {
         Register register = new Register();
         double changeToReceive;

@@ -14,7 +14,12 @@ public class Purse {
     }
 
     public double remove(Denomination type, int amount) {
-        cash.put(type, -amount);
+        if (cash.isEmpty()) {
+            return 0;
+        }
+
+        int currentAmount = cash.get(type);
+        cash.put(type, (currentAmount - amount));
         return ((double) type.amt() * amount);
     }
 
@@ -26,6 +31,10 @@ public class Purse {
         return totalCash;
     }
 
+        /*
+            This method is for the console version
+            It creates the output
+         */
     public String toString() {
         StringBuilder string = new StringBuilder();
 
@@ -39,7 +48,7 @@ public class Purse {
 
         for (HashMap.Entry<Denomination, Integer> entry : sortedCash) {
             if (entry.getKey().form().equals("Bill")){
-                string.append("\n").append(entry.getValue()).append(" ").append(entry.getKey().name()).append("- Dollar Note");
+                string.append("\n").append(entry.getValue()).append(" ").append(entry.getKey().name()).append("-Dollar Note");
             }
             else {
                 string.append("\n").append(entry.getValue()).append(" ").append(entry.getKey().name());

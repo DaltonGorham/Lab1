@@ -11,37 +11,38 @@ public class RegisterPanel extends JPanel {
     JPanel inputPanel;
     JTextField input;
     PursePanel changePanel;
+    JLabel label;
 
     public RegisterPanel() {
-
+        register = new Register();
+        setLayout(new BorderLayout());
         inputPanel = new JPanel();
         input = new JTextField(30);
+        label = new JLabel("Enter the amount of change to receive back: ");
+        label.setFont(new Font("Arial", Font.BOLD, 20));
+        inputPanel.add(label);
         input.setPreferredSize(new Dimension(100, 30));
         input.addActionListener(new InputListener());
         inputPanel.add(input);
-
         changePanel = new PursePanel();
-        this.add(inputPanel);
-        this.add(changePanel);
-        this.setVisible(true);
+        add(inputPanel, BorderLayout.NORTH);
+        add(changePanel, BorderLayout.CENTER);
+
     }
 
 
-   public class InputListener implements ActionListener {
-       public void actionPerformed(ActionEvent e) {
-           register = new Register();
+    public class InputListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
 
-           double changeBack = Double.parseDouble(input.getText());
+            try {
+                double changeBack = Double.parseDouble(input.getText());
+                Purse change = register.makeChange(BigDecimal.valueOf(changeBack));
+                changePanel.setPurse(change);
 
-           Purse change = register.makeChange(BigDecimal.valueOf(changeBack));
-
-           for (Map.Entry<Denomination, Integer> entry : change.entrySet()) {
-               Denomination denomination = entry.getKey();
-               Integer value = entry.getValue();
-               ImageIcon icon = changePanel.getImage(denomination);
-               changePanel.setPurse(change);
-           }
-
-       }
-   }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(RegisterPanel.this, "Please enter a valid number",
+                        "Input Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 }
