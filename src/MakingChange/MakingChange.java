@@ -13,6 +13,7 @@ public class MakingChange {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         RegisterPanel registerPanel = new RegisterPanel();
         frame.add(registerPanel);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.pack();
         frame.setVisible(true);
         frame.setResizable(true);

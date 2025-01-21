@@ -9,12 +9,11 @@ import java.util.Map;
 
 public class PursePanel extends JPanel {
     private Purse purse;
+    private String userInput = " ";
 
     PursePanel() {
         this.purse = new Purse();
-        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
-        setPreferredSize(new Dimension(screenWidth, screenHeight));
+        setPreferredSize(new Dimension(800, 600));
     }
 
     public void setPurse(Purse p) {
@@ -34,7 +33,7 @@ public class PursePanel extends JPanel {
         int yPos = screenHeight / 2 - 400;
 
 
-        g.drawString("Your change: ", 50, 70);
+        g.drawString(("Your change: " + userInput), 50, 70);
 
         if (purse.isEmpty()) {
             g.drawString("Empty Purse", xPos, yPos);
@@ -60,6 +59,7 @@ public class PursePanel extends JPanel {
                             xPos = 50;
                             yPos += imgHeight + 10;
                         }
+
                     }
                 }
                 else {
@@ -81,5 +81,12 @@ public class PursePanel extends JPanel {
 
         return new ImageIcon(imgURL);
     }
+
+    public void setUserInput(String input) {
+        this.userInput = input;
+    }
+
 }
+
+
 

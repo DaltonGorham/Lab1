@@ -39,14 +39,13 @@ public class Register {
         }
 
 
-        BigDecimal precisionMax = BigDecimal.valueOf(.00001);
+        BigDecimal precisionMax = BigDecimal.valueOf(.004);
 
         if (remainingChange.compareTo(precisionMax) < 0) {
             return change;
         }
 
         remainingChange = remainingChange.setScale(2, RoundingMode.HALF_UP);
-
 
         for (Denomination type : denominations) {
 
@@ -57,10 +56,9 @@ public class Register {
             BigDecimal changeBack = denominationValue.multiply(BigDecimal.valueOf(billsNeeded));
 
             if (billsNeeded > 0) {
-                remainingChange = remainingChange.subtract(changeBack);
+                remainingChange = remainingChange.subtract(changeBack).setScale(2, RoundingMode.HALF_UP);
                 change.add(type, billsNeeded);
             }
-
 
         }
         return change;
