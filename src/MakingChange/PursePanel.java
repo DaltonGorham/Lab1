@@ -27,19 +27,21 @@ public class PursePanel extends JPanel {
 
         Font font = new Font("Arial", Font.BOLD, 35);
         g.setFont(font);
-        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
         int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         int xPos = 50;
-        int yPos = screenHeight / 2 - 400;
+        int yPos = screenHeight / 2 - 425;
+        final int yourChangeStringX = 50;
+        final int yourChangeStringY = 50;
 
 
-        g.drawString(("Your change: " + userInput), 50, 70);
+        g.drawString(("Your change: $" + userInput), yourChangeStringX, yourChangeStringY);
 
         if (purse.isEmpty()) {
             g.drawString("Empty Purse", xPos, yPos);
         } else {
-            int imgWidth = 220;
-            int imgHeight = 90;
+            final int imgWidth = 180;
+            final int imgHeight = 90;
+            final int gap = 10;
             Image image;
 
             List<HashMap.Entry<Denomination, Integer>> sortedCash = new ArrayList<>(purse.entrySet());
@@ -54,10 +56,10 @@ public class PursePanel extends JPanel {
                     image = icon.getImage();
                     for (int i = 0; i < count; i++) {
                         g.drawImage(image, xPos, yPos, imgWidth, imgHeight, this);
-                        xPos += imgWidth + 10;
-                        if (xPos > getWidth() - imgWidth - 10) {
+                        xPos += imgWidth + gap;
+                        if (xPos > getWidth() - imgWidth - gap) {
                             xPos = 50;
-                            yPos += imgHeight + 10;
+                            yPos += imgHeight + gap;
                         }
 
                     }
@@ -69,7 +71,7 @@ public class PursePanel extends JPanel {
 
                 // New row after all needed coins/bills are printed
                 xPos = 50;
-                yPos += imgHeight + 10;
+                yPos += imgHeight + gap;
 
             }
         }
