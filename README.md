@@ -1,4 +1,5 @@
 # Object-Oriented Programming Lab 1
+## Must Use Java OpenJDK 23 or later
 ## This project is composed of two main methods:
 ### Register.java - Console Version
 ### MakingChange.java - GUI Version
