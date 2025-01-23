@@ -25,7 +25,7 @@ public class PursePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Font font = new Font("Arial", Font.BOLD, 35);
+        Font font = new Font("Arial", Font.BOLD, 20);
         g.setFont(font);
         int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         int xPos = 50;
@@ -85,7 +85,8 @@ public class PursePanel extends JPanel {
     }
 
     public void setUserInput(String input) {
-        this.userInput = input;
+        this.userInput = purse.toString();
+
     }
 
 }
