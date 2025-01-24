@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class PursePanel extends JPanel {
     private Purse purse;
-    private String userInput = " ";
 
     PursePanel() {
         this.purse = new Purse();
@@ -29,19 +28,18 @@ public class PursePanel extends JPanel {
         g.setFont(font);
         int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         int xPos = 50;
-        int yPos = screenHeight / 2 - 425;
+        int yPos = screenHeight / 2 - 475;
         final int yourChangeStringX = 50;
         final int yourChangeStringY = 50;
 
 
-        g.drawString(("Your change: $" + userInput), yourChangeStringX, yourChangeStringY);
+        g.drawString(("Your change: " + purse.toString()), yourChangeStringX, yourChangeStringY);
 
-        if (purse.isEmpty()) {
-            g.drawString("Empty Purse", xPos, yPos);
-        } else {
+        if (!purse.isEmpty()) {
             final int imgWidth = 180;
             final int imgHeight = 90;
             final int gap = 10;
+
             Image image;
 
             List<HashMap.Entry<Denomination, Integer>> sortedCash = new ArrayList<>(purse.entrySet());
@@ -52,15 +50,18 @@ public class PursePanel extends JPanel {
                 ImageIcon icon = this.getImage(entry.getKey());
                 int count = entry.getValue();
 
+
                 if (icon != null) {
                     image = icon.getImage();
                     for (int i = 0; i < count; i++) {
                         g.drawImage(image, xPos, yPos, imgWidth, imgHeight, this);
                         xPos += imgWidth + gap;
+
                         if (xPos > getWidth() - imgWidth - gap) {
                             xPos = 50;
                             yPos += imgHeight + gap;
                         }
+
 
                     }
                 }
@@ -84,10 +85,6 @@ public class PursePanel extends JPanel {
         return new ImageIcon(imgURL);
     }
 
-    public void setUserInput(String input) {
-        this.userInput = purse.toString();
-
-    }
 
 }
 

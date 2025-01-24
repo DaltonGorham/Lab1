@@ -38,7 +38,6 @@ public class RegisterPanel extends JPanel {
                 double changeBack = Double.parseDouble(input.getText());
                 Purse change = register.makeChange(BigDecimal.valueOf(changeBack));
                 changePanel.setPurse(change);
-                changePanel.setUserInput(input.getText());
 
 
             } catch (NumberFormatException ex) {

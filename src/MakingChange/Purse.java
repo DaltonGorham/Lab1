@@ -10,7 +10,11 @@ public class Purse {
     }
 
     public void add(Denomination type, int amount) {
-        cash.put(type, amount);
+        if (cash.containsKey(type)) {
+            cash.put(type, cash.get(type) + amount);
+        } else {
+            cash.put(type, amount);
+        }
     }
 
     public double remove(Denomination type, int amount) {
@@ -53,10 +57,15 @@ public class Purse {
             else {
                 string.append("\n").append(entry.getValue()).append(" ").append(entry.getKey().name());
             }
+
+            if (sortedCash.size() > 1 && sortedCash.indexOf(entry) != sortedCash.size() - 1) {
+                string.append(", ");
+            }
         }
         return string.toString();
 
     }
+
 
     public boolean isEmpty() {
         return cash.isEmpty();
