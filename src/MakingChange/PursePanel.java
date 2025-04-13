@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PursePanel extends JPanel {
+public class PursePanel extends JPanel implements RegisterObserver {
     private Purse purse;
 
     PursePanel() {
@@ -76,6 +76,12 @@ public class PursePanel extends JPanel {
 
             }
         }
+    }
+
+    @Override
+    public void update(Purse purse) {
+        setPurse(purse);
+        repaint();
     }
 
     public ImageIcon getImage(Denomination d) {

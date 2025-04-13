@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Register {
 
     private List<Denomination> denominations;
+    private RegisterObserver observer;
 
     // initialize new Register object with a list of bills/coins
     public Register() {
@@ -61,7 +62,17 @@ public class Register {
             }
 
         }
+        // notify observes of the new change back
+        notifyObservers(change);
         return change;
+    }
+
+    public void addObserver(RegisterObserver observer) {
+        this.observer = observer;
+    }
+
+    private void notifyObservers(Purse purse) {
+        observer.update(purse);
     }
 
     /*

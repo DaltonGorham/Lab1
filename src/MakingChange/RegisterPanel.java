@@ -25,6 +25,10 @@ public class RegisterPanel extends JPanel {
         input.addActionListener(new InputListener());
         inputPanel.add(input);
         changePanel = new PursePanel();
+
+        // add the Purse Panel as an observer of register
+        register.addObserver(changePanel);
+
         add(inputPanel, BorderLayout.NORTH);
         add(changePanel, BorderLayout.CENTER);
 
@@ -36,10 +40,7 @@ public class RegisterPanel extends JPanel {
 
             try {
                 double changeBack = Double.parseDouble(input.getText());
-                Purse change = register.makeChange(BigDecimal.valueOf(changeBack));
-                changePanel.setPurse(change);
-
-
+                register.makeChange(BigDecimal.valueOf(changeBack));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(RegisterPanel.this, "Please enter a valid number",
                         "Input Error", JOptionPane.ERROR_MESSAGE);
