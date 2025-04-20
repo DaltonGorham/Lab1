@@ -10,9 +10,12 @@ public class Register {
 
     private List<Denomination> denominations;
     private RegisterObserver observer;
+    private ChangeStrategy changeStrategy;
 
     // initialize new Register object with a list of bills/coins
     public Register() {
+        // initialize register with the minimal change strategy
+        this.setChangeStrategy(new MinimalChangeStrategy());
         this.denominations = new ArrayList<>(Arrays.asList(
                 new Denomination("One Hundred", 100.00, "Bill", "One Hundred.jpg"),
                 new Denomination("Fifty", 50.00, "Bill", "Fifty.jpg"),
@@ -27,45 +30,23 @@ public class Register {
         ));
     }
 
-    /* Using the BigDecimal to get more accurate change back
-       BigDecimal[] result is an array that holds the quotient
-       at result[0] and the remainder at result[1]
-    */
+
     public Purse makeChange(BigDecimal amount) {
-        Purse change = new Purse();
-        BigDecimal remainingChange = amount;
-
-        if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            return change;
+        if (this.changeStrategy == null) {
+            System.out.println("Change Strategy must be set before making change.");
         }
-
-
-        BigDecimal precisionMax = BigDecimal.valueOf(.004);
-
-        if (remainingChange.compareTo(precisionMax) < 0) {
-            return change;
-        }
-
-        remainingChange = remainingChange.setScale(2, RoundingMode.HALF_UP);
-
-        for (Denomination type : denominations) {
-
-            BigDecimal denominationValue = BigDecimal.valueOf(type.amt());
-
-            BigDecimal[] result = remainingChange.divideAndRemainder(denominationValue);
-            int billsNeeded = result[0].intValue();
-            BigDecimal changeBack = denominationValue.multiply(BigDecimal.valueOf(billsNeeded));
-
-            if (billsNeeded > 0) {
-                remainingChange = remainingChange.subtract(changeBack).setScale(2, RoundingMode.HALF_UP);
-                change.add(type, billsNeeded);
-            }
-
-        }
-        // notify observes of the new change back
+        // use the specified strategy to get the change back
+        Purse change = changeStrategy.makeChange(amount, denominations);
+        // notify the purse panel and return the change back
         notifyObservers(change);
         return change;
     }
+
+    // use to set the change strategy that can be easily changed
+    public void setChangeStrategy(ChangeStrategy changeStrategy) {
+        this.changeStrategy = changeStrategy;
+    }
+
 
     public void addObserver(RegisterObserver observer) {
         this.observer = observer;
